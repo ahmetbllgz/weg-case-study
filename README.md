@@ -25,7 +25,7 @@ To ensure successful execution of this project, the following software/tools mus
 ### a. Authenticate Google Cloud Account  
 Before provisioning resources on GCP, authenticate your account:  
 ```bash
-gcloud auth login
+gcloud auth application-default login
 ```  
 
 ### b. Set the Project  
