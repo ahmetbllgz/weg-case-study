@@ -126,6 +126,14 @@ kubectl exec -it <pod-name> -- /bin/sh
 kill 1
 ```
 
+### d. Simulate a CPU load for HPA/KEDA
+To test behaviors like pod auto-scaling or log monitoring, simulate a pod crash:  
+```bash
+apk add stress-ng
+stress-ng --cpu 1
+```
+
+
 ## Clean Up
 To cleanup the terraform provisions
 ```bash
