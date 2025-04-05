@@ -1,0 +1,13 @@
+additionalPrometheusRulesMap:
+  pod-restart-alert:
+      groups:
+      - name: pod-restart-alert-group
+        rules:
+        - alert: PodRestartHigh
+          expr: increase(kube_pod_container_status_restarts_total{container="simple-web"}[5m]) > 1
+          for: 5m
+          labels:
+            severity: warning
+          annotations:
+            summary: Pod has restarted more than once in the last 5 minutes.
+            description: Pod {{ $labels.pod }} in namespace {{ $labels.namespace }} has had more than one restart in the past 5 minutes.
