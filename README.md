@@ -125,3 +125,9 @@ To test behaviors like pod auto-scaling or log monitoring, simulate a pod crash:
 kubectl exec -it <pod-name> -- /bin/sh
 kill 1
 ```
+
+## Clean Up
+To cleanup the terraform provisions
+```bash
+terraform destroy
+```
