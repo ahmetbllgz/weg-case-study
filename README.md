@@ -34,6 +34,12 @@ Configure Google Cloud to use the desired project:
 gcloud config set project weg-case-study
 ```
 
+### c. Google cloud GKE auth plugin  
+Install Google Cloud GKE auth plugin:  
+```bash
+sudo apt-get install google-cloud-sdk-gke-gcloud-auth-plugin
+```
+
 ---
 **Important:**  
 Before starting the Terraform deployment, you may want to edit `variables.tf` file with your required variable changes. Espescially in grafana password and credential file location.
