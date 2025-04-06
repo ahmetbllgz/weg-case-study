@@ -1,0 +1,32 @@
+# global:
+#   hub: "gcr.io/istio"
+#   tag: "1.20.1"
+#   multiCluster:
+#     clusterName: "gke-cluster"
+#   controlPlaneSecurityEnabled: true
+
+# istiod:
+#   enabled: true
+#   replicaCount: 1
+#   nodeSelector:
+#     cloud.google.com/gke-nodepool: "application-pool"
+#   tolerations:
+#     - key: "node.kubernetes.io/not-ready"
+#       operator: "Exists"
+#       effect: "NoSchedule"
+#     - key: "node.kubernetes.io/unreachable"
+#       operator: "Exists"
+#       effect: "NoSchedule"
+#   service:
+#     type: ClusterIP
+#     ports:
+#       - name: https
+#         port: 15017
+#         targetPort: 15017
+#   resources:
+#     requests:
+#       cpu: "500m"
+#       memory: "1024Mi"
+#     limits:
+#       cpu: "1000m"
+#       memory: "2048Mi"

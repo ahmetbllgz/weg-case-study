@@ -1,0 +1,32 @@
+# global:
+#   hub: "gcr.io/istio"
+#   tag: "1.20.1"
+
+# replicaCount: 1
+
+# nodeSelector:
+#   cloud.google.com/gke-nodepool: "application-pool"
+
+# tolerations:
+#   - key: "node.kubernetes.io/not-ready"
+#     operator: "Exists"
+#     effect: "NoSchedule"
+#   - key: "node.kubernetes.io/unreachable"
+#     operator: "Exists"
+#     effect: "NoSchedule"
+
+service:
+  type: LoadBalancer
+  loadBalancerIP: 34.77.72.173
+  annotations:
+    networking.gke.io/managed-certificates: "weg-case-study-cert"
+  ports:
+    - name: http
+      port: 80
+      targetPort: 80
+    - name: https
+      port: 443
+      targetPort: 8443
+    - name: tcp
+      port: 15443
+      targetPort: 15443

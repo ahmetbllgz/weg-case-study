@@ -1,0 +1,65 @@
+apiVersion: networking.gke.io/v1alpha3
+kind: Gateway
+metadata:
+  name: case-study-gateway
+  namespace: istio-system
+spec:
+  selector:
+    istio: ingressgateway
+  servers:
+  - port:
+      number: 80
+      name: http
+      protocol: HTTP
+    hosts:
+    - "weg-case-study.ahmetbllgz.com"
+  - port:
+      number: 443
+      name: https
+      protocol: HTTPS
+    hosts:
+    - "weg-case-study.ahmetbllgz.com"
+    tls:
+      mode: SIMPLE
+      credentialName: weg-case-study-tls
+      minProtocolVersion: TLSV1_2
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: case-study-routes
+  namespace: istio-system
+spec:
+  hosts:
+  - "weg-case-study.ahmetbllgz.com"
+  gateways:
+  - case-study-gateway
+  http:
+  - match:
+    - uri:
+        exact: "/"
+    route:
+    - destination:
+        host: simple-web.default.svc.cluster.local
+        port:
+          number: 80
+  - match:
+    - uri:
+        prefix: "/prometheus"
+    rewrite:
+      uri: "/"
+    route:
+    - destination:
+        host: prometheus.monitoring.svc.cluster.local
+        port:
+          number: 9090
+  - match:
+    - uri:
+        prefix: "/grafana"
+    rewrite:
+      uri: "/"
+    route:
+    - destination:
+        host: grafana.monitoring.svc.cluster.local
+        port:
+          number: 3000
