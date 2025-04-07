@@ -1,3 +1,17 @@
+resource "helm_release" "cert_manager" {
+  name             = "cert-manager"
+  repository       = "https://charts.jetstack.io"
+  chart            = "cert-manager"
+  version          = "v1.17.1"
+  namespace        = "cert-manager"
+  create_namespace = true
+
+  set {
+    name  = "installCRDs"
+    value = "true"
+  }
+}
+
 resource "helm_release" "kube_prometheus_stack" {
   name             = "kube-prometheus-stack"
   repository       = "https://prometheus-community.github.io/helm-charts"
@@ -40,7 +54,9 @@ resource "helm_release" "istiod" {
   version          = "1.20.1"
   namespace        = "istio-system"
   create_namespace = true
-
+  values = [
+    file("${path.module}/k8s/istiod-values.yaml")
+  ]
   depends_on = [helm_release.istio_base]
 }
 

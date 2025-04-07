@@ -1,7 +1,0 @@
-apiVersion: networking.gke.io/v1
-kind: ManagedCertificate
-metadata:
-  name: weg-case-study-cert
-spec:
-  domains:
-    - weg-case-study.ahmetbllgz.com

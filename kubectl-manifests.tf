@@ -1,5 +1,11 @@
-resource "kubectl_manifest" "managed_certificates" {
-  yaml_body = file("${path.module}/k8s/managed-certificate.yaml")
+resource "kubectl_manifest" "clusterissuer" {
+  yaml_body = file("${path.module}/k8s/clusterissuer.yaml")
+  depends_on  = [helm_release.cert_manager]
+}
+
+resource "kubectl_manifest" "certificate" {
+  yaml_body = file("${path.module}/k8s/certificate.yaml")
+  depends_on = [kubectl_manifest.clusterissuer]
 }
 
 resource "kubectl_manifest" "grafana_pod_restart_alert_dashboard" {
@@ -21,4 +27,3 @@ resource "kubectl_manifest" "gateway_routes" {
   yaml_body = file("${path.module}/k8s/gateway-routes.yaml")
   depends_on = [helm_release.istio_gateway]
 }
-
